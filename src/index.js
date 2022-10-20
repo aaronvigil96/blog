@@ -8,6 +8,7 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', './src/public/views');
 
+app.use(express.static('./src/public'));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(urlencoded({extended: false}));
