@@ -7,6 +7,7 @@ interface EnvVars {
     POSTGRES_PASSWORD:string;
     POSTGRES_DB:string;
     DATABASE_URL:string;
+    SECRET_JWT_KEY:string;
 }
 
 const envsSchema = joi.object({
@@ -25,5 +26,6 @@ export const envs = {
     postgres_user: envVars.POSTGRES_USER,
     postgres_password: envVars.POSTGRES_PASSWORD,
     postgres_db: envVars.POSTGRES_DB,
-    database_url: envVars.DATABASE_URL
+    database_url: envVars.DATABASE_URL,
+    secret_jwt_key: envVars.SECRET_JWT_KEY,
 }
