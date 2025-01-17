@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthService } from "./auth.service";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { GetUser } from "./decorators/get-user.decorator";
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +22,9 @@ export class AuthController {
 
     @Get('profile')
     @UseGuards(AuthGuard())
-    profile(){
-        return 'hola';
+    profile(@Req() request, @GetUser() user){
+        return {
+            user
+        };
     }
 }
