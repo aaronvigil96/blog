@@ -30,6 +30,7 @@ model Post {
   title String
   content String
   createdAt DateTime @default(now())
+  isActive Boolean @default(true)
   author User @relation(fields: [authorId], references: [id])
   authorId Int
 }
