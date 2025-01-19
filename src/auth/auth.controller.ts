@@ -2,9 +2,8 @@ import { Body, Controller, Get, Post } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthService } from "./auth.service";
 import { LoginUserDto } from "./dto/login-user.dto";
-import { GetUser } from "./decorators/get-user.decorator";
-import { ValidRoles } from "./interfaces/valid-roles.enum";
 import { Auth } from "./decorators/auth.decorator";
+import { GetUser } from "./decorators/get-user.decorator";
 
 @Controller('auth')
 export class AuthController {
@@ -21,11 +20,10 @@ export class AuthController {
         return this.authService.login(loginUserDto);
     }
 
-    @Get('private')
-    @Auth(ValidRoles.ADMIN)
-    private(@GetUser() user){
-        return {
-            user
-        }
+    @Get('profile')
+    @Auth()
+    profile(@GetUser()user){
+        return user;
     }
+
 }
