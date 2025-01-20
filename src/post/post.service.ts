@@ -54,15 +54,4 @@ export class PostService {
         });
         return posts;
     }
-
-    get events(){
-        return this.eventSubject.asObservable();
-    }
-
-    async notifyNewPost(post:any){
-
-        const data = await post;
-
-        this.eventSubject.next({data});
-    }
 }

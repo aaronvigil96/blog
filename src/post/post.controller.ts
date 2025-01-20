@@ -24,14 +24,7 @@ export class PostController {
     @Post()
     @Auth()
     createPost(@Body() createPostDto:CreatePostDto, @GetUser('id') idUser){
-        const post = this.postService.createPost(idUser, createPostDto);
-        this.postService.notifyNewPost(post);
-        return post;
-    }
-
-    @Sse('/events')
-    sendPostEvent(){
-        return this.postService.events;
+        return this.postService.createPost(idUser, createPostDto);
     }
 
 }
