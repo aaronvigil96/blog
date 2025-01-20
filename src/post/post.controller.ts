@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Patch, Post, Query, Sse } from "@nestjs/common";
 import { PostService } from "./post.service";
 import { PaginationDto } from "src/common/pagination.dto";
 import { Auth } from "src/auth/decorators/auth.decorator";
@@ -24,12 +24,14 @@ export class PostController {
     @Post()
     @Auth()
     createPost(@Body() createPostDto:CreatePostDto, @GetUser('id') idUser){
-        return this.postService.createPost(idUser, createPostDto);
+        const post = this.postService.createPost(idUser, createPostDto);
+        this.postService.notifyNewPost(post);
+        return post;
     }
 
-    @Patch()
-    @Auth()
-    updatePost(){
-
+    @Sse('/events')
+    sendPostEvent(){
+        return this.postService.events;
     }
+
 }
